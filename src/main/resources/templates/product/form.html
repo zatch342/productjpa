@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="/products" method="post" enctype="multipart/form-data">
+  ProductName: <input type="text" name="name"><br>
+  Price: <input type="number" name="Price"><br>
+  Stock: <input type="number" name="Stock"><br>
+  Description: <textarea name="description"></textarea>
+  Image: <input type="file" name="imageFile" accept="image/*">
+  <button type="submit">Save</button>
+</form>
+<a class="btn" href="/products">Go to List</a>
+</body>
+</html>
