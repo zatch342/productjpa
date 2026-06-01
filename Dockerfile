@@ -1,18 +1,26 @@
-
-#Step 1: Build Stage
+# Step 1: Build Stage
 FROM gradle:8.5-jdk21 AS build
-COPY --chown=gradle:gradle . /home/app
+
 WORKDIR /home/app
-#Command to grant execution permissions to prevent Windows environment permission errors
-RUN chmod +x ./gradlew
 
+# Copy project files
+COPY --chown=gradle:gradle . .
 
-RUN ./gradlew build -x test
+# Prevent permission issues with gradlew
+RUN chmod +x gradlew
 
-#Step 2: Execution Stage
+# Build application
+RUN ./gradlew clean build -x test
+
+# Step 2: Runtime Stage
 FROM eclipse-temurin:21-jre-jammy
-EXPOSE 8080
-COPY --from=build /home/app/build/libs/*-SNAPSHOT.jar app.jar
 
-ENTRYPOINT
-["java", "-jar", "/app.jar"]
+WORKDIR /
+
+EXPOSE 8080
+
+# Copy generated jar
+COPY --from=build /home/app/build/libs/*.jar app.jar
+
+# Run application
+ENTRYPOINT ["java", "-jar", "/app.jar"]
