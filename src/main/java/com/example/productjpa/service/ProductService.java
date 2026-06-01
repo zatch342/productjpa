@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
 
+
 @Service
 public class ProductService {
     @Autowired
@@ -44,5 +45,10 @@ public class ProductService {
     public List<Product> findProduct(String name) {
       List<Product> list =  productRepository.findAllByNameContaining(name);
       return list;
+    }
+
+
+    public Product findById(Long id) {
+        return productRepository.findById(id).orElse(null);
     }
 }

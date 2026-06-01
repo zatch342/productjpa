@@ -5,10 +5,7 @@ import com.example.productjpa.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -46,5 +43,19 @@ public class ProductController {
         model.addAttribute("products", list);
         return "product/list";
 
+    }
+
+    //implement view
+    @GetMapping("/products/view")
+    public String productView(@RequestParam("id") Long id, Model model) {
+
+        Product product = productService.findById(id);
+
+        if (product == null) {
+            return "redirect:/products";
+        }
+
+        model.addAttribute("product", product);
+        return "product/view";
     }
 }

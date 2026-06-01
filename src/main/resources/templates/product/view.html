@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Product Detail</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<div class="container">
+
+    <h1>Product Detail</h1>
+
+    <div th:if="${product != null}">
+
+        <p>
+            <strong>ID:</strong>
+            <span th:text="${product.id}"></span>
+        </p>
+
+        <p>
+            <strong>Name:</strong>
+            <span th:text="${product.name}"></span>
+        </p>
+
+        <p>
+            <strong>Price:</strong>
+            <span th:text="${product.price}"></span>
+        </p>
+
+        <p>
+            <strong>Description:</strong>
+            <span th:text="${product.description}"></span>
+        </p>
+
+        <div th:if="${product.imageName != null}">
+            <img th:src="@{/uploads/{img}(img=${product.imageName})}"
+                 width="300"
+                 alt="Product Image">
+        </div>
+
+    </div>
+
+    <div th:if="${product == null}">
+        <h3>Product not found.</h3>
+    </div>
+
+    <br>
+
+    <a th:href="@{/products}">Back to List</a>
+
+</div>
+
+</body>
+</html>
